@@ -11,8 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.dementiev.composestudy.ui.theme.ComposeStudyTheme
+import org.dementiev.data.NewsRepository
 
 class MainActivity : ComponentActivity() {
+    private val newsRepository by lazy {
+        NewsRepository.create(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
