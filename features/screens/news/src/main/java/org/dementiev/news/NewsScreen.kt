@@ -52,7 +52,7 @@ fun NewsScreen(
                     )
                     Button(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = { viewModel.loadData() }
+                        onClick = { viewModel.refreshData() }
                     ) {
                         Text(text = "Повторить")
                     }
@@ -63,7 +63,7 @@ fun NewsScreen(
                     state = rememberSwipeRefreshState(
                         isRefreshing = state.value is NewsState.Loading
                     ), // no-op
-                    onRefresh = { viewModel.loadData() },
+                    onRefresh = { viewModel.refreshData() },
                     modifier = Modifier.fillMaxSize()
                 ) {
                     val content = state.value as NewsState.Content

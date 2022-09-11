@@ -2,7 +2,6 @@ package org.dementiev.data
 
 import android.content.Context
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import org.dementiev.data.entity.NewsItem
 import org.dementiev.data.local.LocalDataSource
 import org.dementiev.data.remote.RemoteDataSource
@@ -20,4 +19,6 @@ interface NewsRepository {
     }
 
     suspend fun getNews(): Flow<Result<List<NewsItem>, Throwable>>
+
+    suspend fun refreshNews(): Flow<Result<List<NewsItem>, Throwable>>
 }

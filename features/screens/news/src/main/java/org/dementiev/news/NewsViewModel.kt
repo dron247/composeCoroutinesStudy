@@ -27,9 +27,24 @@ class NewsViewModel(
 
     fun loadData() {
         viewModelScope.launch(Dispatchers.IO) {
+            newsRepository.getNews().collect { result ->
+                result
+                    .doOnError { e ->
+                        stateInternal.emit(NewsState.Error(e))
+                        Timber.e(e)
+                    }
+                    .doOnSuccess { data ->
+                        stateInternal.emit(NewsState.Content(data))
+                    }
+            }
+        }
+    }
+
+    fun refreshData() {
+        viewModelScope.launch(Dispatchers.IO) {
             stateInternal.emit(NewsState.Loading)
             delay(1000)
-            newsRepository.getNews().collect { result ->
+            newsRepository.refreshNews().collect { result ->
                 result
                     .doOnError { e ->
                         stateInternal.emit(NewsState.Error(e))
